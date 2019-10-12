@@ -1,5 +1,6 @@
 package com.zero.service.impl;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.zero.converter.OrderMaster2OrderDTOConverter;
 import com.zero.dto.CartDTO;
 import com.zero.dto.OrderDTO;
@@ -135,7 +136,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderDTO finish(OrderDTO orderDTO) {
         // 判断订单状态
-        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.CANCEL.getCode())) {
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
             log.error("【完结订单】订单状态不正确,orderId={},orderStatus={}",orderDTO.getOrderId());
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
@@ -174,5 +175,12 @@ public class OrderServiceImpl implements OrderService {
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
         return orderDTO;
+    }
+
+    @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
+        return new PageImpl<>(orderDTOList,pageable,orderMasterPage.getTotalElements());
     }
 }

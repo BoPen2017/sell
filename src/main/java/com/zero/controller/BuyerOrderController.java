@@ -53,8 +53,8 @@ public class BuyerOrderController {
     // 订单列表
     @GetMapping("/list")
     public ResultVO<List<OrderDTO>> list(@RequestParam("openid")String openid,
-                                          @RequestParam(value = "page",defaultValue = "0")Integer page,
-                                          @RequestParam(value = "size",defaultValue = "10")Integer size)  {
+                                         @RequestParam(value = "page",defaultValue = "0")Integer page,
+                                         @RequestParam(value = "size",defaultValue = "10")Integer size)  {
         if (StringUtils.isEmpty(openid)) {
             log.error("【查询订单列表】openid为空");
             throw new SellException(ResultEnum.PARM_ERROR);
