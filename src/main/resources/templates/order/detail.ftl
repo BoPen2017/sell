@@ -1,19 +1,20 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>商品详情</title>
-        <link href="https://cdn.bootcss.com/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container">
+    <#include "../common/head.ftl">
+<body>
+<div id="wrapper" class="toggled">
+    <#--边栏sidebar-->
+    <#include "../common/nav.ftl">
+    <#--主要内容content-->
+    <div class="page-content-wrapper">
+        <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-6 column">
                     <table class="table table-striped">
                         <thead>
-                        <tr>
-                            <th>订单ID</th>
-                            <th>订单总金额</th>
-                        </tr>
+                            <tr>
+                                <th>订单ID</th>
+                                <th>订单总金额</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
@@ -36,13 +37,13 @@
                         </thead>
                         <tbody>
                         <#list orderDTO.orderDetailList as orderDetail>
-                        <tr>
-                            <td>${orderDetail.productId}</td>
-                            <td>${orderDetail.productName}</td>
-                            <td>${orderDetail.productPrice}</td>
-                            <td>${orderDetail.productQuantity}</td>
-                            <td>${orderDetail.productQuantity * orderDetail.productPrice}</td>
-                        </tr>
+                            <tr>
+                                <td>${orderDetail.productId}</td>
+                                <td>${orderDetail.productName}</td>
+                                <td>${orderDetail.productPrice}</td>
+                                <td>${orderDetail.productQuantity}</td>
+                                <td>${orderDetail.productQuantity * orderDetail.productPrice}</td>
+                            </tr>
                         </#list>
                         </tbody>
                     </table>
@@ -55,5 +56,7 @@
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>

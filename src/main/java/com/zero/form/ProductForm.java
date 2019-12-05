@@ -1,21 +1,12 @@
-package com.zero.entity;
+package com.zero.form;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.zero.enums.ProductStatusEnum;
-import com.zero.utils.EnumUtil;
 import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 
-@Entity
 @Data
-@DynamicUpdate
-public class ProductInfo {
+public class ProductForm {
 
-    @Id
     private String productId;
     /** 名字 */
     private String productName;
@@ -31,9 +22,4 @@ public class ProductInfo {
     private Integer productStatus;
     /** 类目编号 */
     private Integer categoryType;
-
-    @JsonIgnore
-    public ProductStatusEnum getProductStatusEnum(){
-        return EnumUtil.getByCode(productStatus,ProductStatusEnum.class);
-    }
 }
