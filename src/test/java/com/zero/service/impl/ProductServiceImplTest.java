@@ -59,13 +59,13 @@ public class ProductServiceImplTest {
 
     @Test
     public void onsafe(){
-        ProductInfo result = productService.onSale("");
+        ProductInfo result = productService.onSale("123456");
         Assert.assertEquals(ProductStatusEnum.UP,result.getProductStatusEnum());
     }
 
     @Test
     public void nosafe(){
-        ProductInfo result = productService.noSale("");
+        ProductInfo result = productService.noSale("123456");
         Assert.assertEquals(ProductStatusEnum.DOWN,result.getProductStatusEnum());
     }
 }

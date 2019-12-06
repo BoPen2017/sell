@@ -9,66 +9,44 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>商品名称</th>
-                            <th>图片</th>
-                            <th>单价</th>
-                            <th>库存</th>
-                            <th>描述</th>
-                            <th>类目</th>
-                            <th>创建时间 </th>
-                            <th>修改时间 </th>
-                            <th colspan="2" class="center">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <#list productInfoPage.content as productInfo>
-                        <tr>
-                            <td>${productInfo.productId}</td>
-                            <td>${productInfo.productName}</td>
-                            <td}<img src="${productInfo.productIcon}"></td>
-                            <td>${productInfo.productPrice}</td>
-                            <td>${productInfo.productStock}</td>
-                            <td>${productInfo.productDescription}</td>
-                            <td>${productInfo.categoryType}</td>
-                            <td>${productInfo.createTime}</td>
-                            <td>${productInfo.updateTime}</td>
-                            <td><a href="/seller/order/detail?productId=${productInfo.productId}" type="button" class="btn btn-sm btn-info">详情</a></td>
-                            <td>
-                                <#if productInfo.getProductStatusEnum().message == "在架">
-                                    <a href="/seller/order/on_sale?orderId=${productInfo.productId}" type="button" class="btn btn-sm btn-info">在架</a>
-                                <#else>
-                                    <a href="/seller/order/no_sale?orderId=${productInfo.productId}" type="button" class="btn btn-sm btn-danger">下架</a>
-                                </#if>
-                            </td>
-                        </tr>
-                        </#list>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-12 column">
-                    <ul class="pagination pull-right">
-                    <#if currentPage lte 1>
-                        <li class="disabled"><a href="#">上一页</a></li>
-                    <#else>
-                        <li><a href="/seller/product/list?page=${currentPage - 1}&size=${size}">上一页</a></li>
-                    </#if>
-                    <#list 1..productInfo.getTotalPages() as index>
-                        <#if currentPage == index>
-                            <li class="disabled"><a href="#">${index}</a></li>
-                        <#else>
-                            <li><a href="/seller/product/list?page=${index}&size=${size}">${index}</a></li>
-                        </#if>
-                    </#list>
-                    <#if currentPage gte productInfo.getTotalPages()>
-                        <li class="disabled"><a href="#">下一页</a></li>
-                    <#else>
-                        <li><a href="/seller/order/list?page=${currentPage + 1}&size=${size}">下一页</a></li>
-                    </#if>
-                    </ul>
+                    <form action="/seller/product/save" method="post" role="form">
+                        <div class="form-group">
+                            <label>名称</label>
+                            <input type="text" name="productName" class="form-control" value="${(productInfo.productName)!''}">
+                        </div>
+                        <div class="form-group">
+                            <label>价格</label>
+                            <input type="text" name="productPrice" class="form-control" value="${(productInfo.productPrice)!''}">
+                        </div>
+                        <div class="form-group">
+                            <label>库存</label>
+                            <input type="number" name="productStock" class="form-control" value="${(productInfo.productStock)!''}">
+                        </div>
+                        <div class="form-group">
+                            <label>描述</label>
+                            <input type="text" name="productDescription" class="form-control" value="${(productInfo.productDescription)!''}">
+                        </div>
+                        <div class="form-group">
+                            <label>图片</label>
+                            <img height="100" width="100" src="${(productInfo.productIcon)!''}" alt="">
+                            <input name="productIcon" type="text" class="form-control" value="${(productInfo.productIcon)!''}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>类目</label>
+                            <select name="categoryType" class="form-control">
+                            <#list categoryList as category>
+                                <option value="${category.categoryType}"
+                                    <#if (productInfo.categoryType)?? && productInfo.categoryType == category.categoryType>
+                                        selected
+                                    </#if>
+                                >${category.categoryName}
+                                </option>
+                                </#list>
+                            </select>
+                        </div>
+                        <input type="hidden" name="productId" value="${(productInfo.productId)!''}">
+                        <button class="btn btn-default" type="submit">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>

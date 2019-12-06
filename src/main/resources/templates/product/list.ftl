@@ -29,19 +29,18 @@
                             <tr>
                                 <td>${productInfo.productId}</td>
                                 <td>${productInfo.productName}</td>
-                                <td}<img src="${productInfo.productIcon}"></td>
+                                <td><img width="100" height="50" src="${productInfo.productIcon}"></td>
                                 <td>${productInfo.productPrice}</td>
                                 <td>${productInfo.productStock}</td>
                                 <td>${productInfo.productDescription}</td>
                                 <td>${productInfo.categoryType}</td>
                                 <td>${productInfo.createTime}</td>
                                 <td>${productInfo.updateTime}</td>
-                                <td><a href="/seller/order/detail?productId=${productInfo.productId}" type="button" class="btn btn-sm btn-info">详情</a></td>
                                 <td>
                                     <#if productInfo.getProductStatusEnum().message == "在架">
-                                        <a href="/seller/order/on_sale?orderId=${productInfo.productId}" type="button" class="btn btn-sm btn-info">在架</a>
+                                        <a href="/seller/product/no_sale?productId=${productInfo.productId}" type="button" class="btn btn-sm btn-danger">下架</a>
                                     <#else>
-                                        <a href="/seller/order/no_sale?orderId=${productInfo.productId}" type="button" class="btn btn-sm btn-danger">下架</a>
+                                        <a href="/seller/product/on_sale?productId=${productInfo.productId}" type="button" class="btn btn-sm btn-info">在架</a>
                                     </#if>
                                 </td>
                             </tr>
@@ -56,14 +55,14 @@
                         <#else>
                             <li><a href="/seller/product/list?page=${currentPage - 1}&size=${size}">上一页</a></li>
                         </#if>
-                        <#list 1..productInfo.getTotalPages() as index>
+                        <#list 1..productInfoPage.getTotalPages() as index>
                             <#if currentPage == index>
                                 <li class="disabled"><a href="#">${index}</a></li>
                             <#else>
                                 <li><a href="/seller/product/list?page=${index}&size=${size}">${index}</a></li>
                             </#if>
                         </#list>
-                        <#if currentPage gte productInfo.getTotalPages()>
+                        <#if currentPage gte productInfoPage.getTotalPages()>
                             <li class="disabled"><a href="#">下一页</a></li>
                         <#else>
                             <li><a href="/seller/order/list?page=${currentPage + 1}&size=${size}">下一页</a></li>

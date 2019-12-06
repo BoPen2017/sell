@@ -18,8 +18,6 @@ public class ProductForm {
     private String productDescription;
     /** 小图 */
     private String productIcon;
-    /** 状态0正常，1下架 */
-    private Integer productStatus;
     /** 类目编号 */
     private Integer categoryType;
 }
